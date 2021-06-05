@@ -25,7 +25,7 @@ SECRET_KEY = 'ee1iq8&03hy(=wl5_4a%(o4!@-fqgu-ug9wul$27*0@l1daq5n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['babyworld.herokuapp.com']
 
 
 # Application definition
