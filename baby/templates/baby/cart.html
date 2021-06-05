@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+CART
+{% endblock  %}
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock  %}  
+{% block bt %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock  %}
+
+{% block user_status %}
+{% if user.is_authenticated%}
+<li>
+  <a href="{% url 'logout' %}"> LOGOUT </a>
+</li>
+{% else %}
+
+<li>
+  <a href="user/login"> LOGIN </a>
+</li>
+{% endif %}
+{% endblock  %}
+
+{% block user_name %}
+
+{% if user.is_authenticated %}
+         <li>
+            <a href="#" style="color: whitesmoke;" > {{request.user}} is logged in </a>
+        </li>
+{% endif %}
+
+{% endblock %}
+
+{% block body %}
+{% comment %} <div class="container">
+        <div class="box">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for i in items %}
+                  <tr>
+                   <td><img src="{{i.product.image}}" alt="" width=50px></td>
+                    <td>{{i.product.name}}</td>
+                    <td>{{i.product.price | floatformat:2}}</td>
+                    <td>{{item.quantity}} </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    </div> {% endcomment %}
+
+<br>
+    <div class="card">
+    <div class="row" style="padding-left:5px">
+        <div class="col-md-8 cart">
+            <div class="title">
+                <div class="row">
+                    <div class="col">
+                        <h4 style="text-align:center;color:#AC3B61">Items That Baby Waiting For</h4>
+                    </div>
+                    {% comment %} <div class="col align-self-center text-right text-muted">3 items</div> {% endcomment %}
+                </div>
+            </div>
+            {% for i in items  %}
+            <div class="row border-top border-bottom">
+                <div class="row main align-items-center">
+                    <div class="col-2" style="margin-left:11px"><img class="img-fluid" src="{{i.product.image}}"></div>
+                    <div class="col">
+                        <div class="row text-muted">Soap</div>
+                        <div class="row"> <h6 style="color:#123C69">{{i.product.name}}</h6> </div>
+                    </div>
+                    <div class="col">
+                     <button data-product={{i.product.id}}  data-action="remove" class="update-cart" >-</button>
+                     <a href="#" class="border" style="color:#AC3B61">{{i.quantity}}</a>
+                     <button  data-product={{i.product.id}}  data-action="add" class="update-cart" >+</button>
+                     </div>
+                    <div class="col" style="color:#AC3B61">&#8377; {{i.product.price}} <span class="close">&#10005;</span></div>
+                </div>
+            </div>
+           {% endfor %}
+            
+            <div class="back-to-shop"><a href="/" style="color:#AC3B61">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+        </div>
+        <div class="col-md-4 summary">
+            <div>
+                <h5><b>Summary</b></h5>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col" style="padding-left:4;">Total Items</div>
+                <div class="col text-right"> {{order.get_cart_items}}</div>
+            </div>
+
+            <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                <div class="col">TOTAL PRICE</div>
+                <div class="col text-right">&#8377; {{order.get_cart_total}}</div>
+            </div>
+            <a href="{% url 'checkout' %}">
+                <button class="btn btn-secondary">CHECKOUT</button>
+            </a> 
+        </div>
+    </div>
+</div>
+
+ 
+{% endblock  %}
+
+{% block script %}
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <script type="text/javascript" src ="{% static 'js/cart.js' %}">
+    </script>
+{% endblock  %}

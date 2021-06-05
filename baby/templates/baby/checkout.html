@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+CART
+{% endblock  %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock  %}  
+{% block head_style %}
+       .element
+        {
+            margin-top: 80px;
+            margin-left: 56px;
+            width: 800px;
+            position: static;
+        }
+        .bg
+        {
+            margin-top:10px;
+            margin-left:246px;
+            height: 550px;
+            width:900px;
+            position: absolute;
+            background-color:#EEE2DC;
+            border-radius: 8px;
+            box-shadow: 0 0 5px 1px lightgrey;
+
+        }
+        input[type='text']
+        {
+            border:0.1rem solid black !important;
+        }
+        body
+        {
+            color:#AC3B61 !important;
+        }
+{% endblock  %}
+{% block bt %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+{% endblock  %}
+
+{% block user_status %}
+{% if user.is_authenticated%}
+<li>
+  <a href="{% url 'logout' %}"> LOGOUT </a>
+</li>
+{% else %}
+
+<li>
+  <a href="user/login"> LOGIN </a>
+</li>
+{% endif %}
+{% endblock  %}
+
+{% block user_name %}
+
+{% if user.is_authenticated %}
+         <li>
+            <a href="#" style="color: whitesmoke;" > {{request.user}} is logged in </a>
+        </li>
+{% endif %}
+
+{% endblock %}
+
+{% block body %}
+    <form class="bg" method="POST" action="{% url 'order' %}">
+        <div class="element">
+             {% csrf_token %}
+            <h3 style="color:#123C69; margin-left:270px; " ><strong>Shipping Address</strong></h3>
+          <label for="address">Address</label>
+          <input type="text"  id="address" name="address">
+          <label for="city">City</label>
+          <input type="text"  id="city" name="city">
+          <label for="state">State</label>
+          <input type="text"  id="state" name="state">
+          <label for="zip">Zip code</label>
+          <input type="text"  id="zip" name="zip">
+          <br>
+          <a href="{% url 'order' %}">
+              <input class="button-primary" type="submit" value="Confirm Address" id="make-payment">
+          </a>
+
+        </div> 
+      </form>
+{% endblock %}

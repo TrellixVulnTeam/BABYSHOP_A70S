@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock  %} 
+
+{% block title %}
+ LOGIN PAGE
+{% endblock  %}
+
+{% block body %}
+<form method="POST" action="">
+   {% csrf_token %}
+  <div class="container">
+    <h1>Login</h1>
+    <hr>
+    
+   
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Email" name="username" id="username" required>
+    
+
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" id="password" required>
+
+
+    <hr>
+
+    <button type="submit" class="registerbtn">Login</button>
+  </div>
+
+   {% for message  in messages %}
+     <p>{{message}}</p>
+   {% endfor %}
+  {% comment %} <div class="container signin">
+    <p>Already have an account? <a href="#">Sign in</a>.</p>
+  </div> {% endcomment %}
+</form>
+{% endblock  %}

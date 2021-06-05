@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+ORDER STATUS
+{% endblock  %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock  %}  
+{% block head_style %}
+      .element
+        {
+            margin-top: 80px;
+            margin-left: 56px;
+            width: 800px;
+            position: static;
+        }
+        .bg
+        {
+            margin-top:10px;
+            margin-left:246px;
+            height: 550px;
+            width:900px;
+            position: absolute;
+            background-color:#EEE2DC;
+            border-radius: 8px;
+            box-shadow: 0 0 5px 1px lightgrey;
+
+        }
+        input[type='text']
+        {
+            border:0.1rem solid black !important;
+        }
+        body
+        {
+            color:#AC3B61 !important;
+        }
+{% endblock  %}
+{% block bt %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+{% endblock  %}
+
+{% block user_status %}
+{% if user.is_authenticated%}
+<li>
+  <a href="{% url 'logout' %}"> LOGOUT </a>
+</li>
+{% else %}
+
+<li>
+  <a href="user/login"> LOGIN </a>
+</li>
+{% endif %}
+{% endblock  %}
+
+{% block user_name %}
+
+{% if user.is_authenticated %}
+         <li>
+            <a href="#" style="color: whitesmoke;" > {{request.user}} is logged in </a>
+        </li>
+{% endif %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="bg">
+    <div class="element">
+      <h3 style="color:#123C69">Your Transaction Id : {{order.transaction_id}}</h3>
+      <h3 style="color:#123C69">Ordered Date:{{s.date_added}}</h3>
+      <h2>ORDERED SUCCESSFULLY </h2>
+    </div>
+    </div>
+{% endblock %}
